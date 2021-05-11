@@ -248,7 +248,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 					"postProcessBeanFactory already called on this post-processor against " + registry);
 		}
 		this.registriesPostProcessed.add(registryId);
-
+		// 处理配置的bean定义信息
 		processConfigBeanDefinitions(registry);
 	}
 
@@ -364,6 +364,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 						registry, this.sourceExtractor, this.resourceLoader, this.environment,
 						this.importBeanNameGenerator, parser.getImportRegistry());
 			}
+			// 将加了@Bean的方法、@import @ImportResource 注解 的bean定义信息加载，重要
 			this.reader.loadBeanDefinitions(configClasses);
 			/*xxx: 移除已经解析的配置类*/
 			alreadyParsed.addAll(configClasses);

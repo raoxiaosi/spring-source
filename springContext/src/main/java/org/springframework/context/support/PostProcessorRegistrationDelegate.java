@@ -273,6 +273,7 @@ final class PostProcessorRegistrationDelegate {
         for (BeanDefinitionRegistryPostProcessor postProcessor : postProcessors) {
             StartupStep postProcessBeanDefRegistry = applicationStartup.start("spring.context.beandef-registry.post-process")
                     .tag("postProcessor", postProcessor::toString);
+            // 调用bean定义的后置处理器，往registry加入bean定义信息，比如配置类中定义的bean、扫描包、import等等配置的bean
             postProcessor.postProcessBeanDefinitionRegistry(registry);
             postProcessBeanDefRegistry.end();
         }
